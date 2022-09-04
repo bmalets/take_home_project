@@ -75,3 +75,5 @@ group :test do
 end
 
 gem "rspec-rails", "~> 5.1"
+
+gem "aasm", "~> 5.3"
