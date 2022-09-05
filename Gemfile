@@ -77,3 +77,5 @@ end
 gem "rspec-rails", "~> 5.1"
 
 gem "aasm", "~> 5.3"
+
+gem "fast_jsonparser", "~> 0.6.0"

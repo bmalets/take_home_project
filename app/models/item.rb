@@ -11,7 +11,15 @@ class Item < ApplicationRecord
     state :negative
     state :disputed
 
-    event :dispute do
+    event :analyzed_as_negative do
+      transitions from: :unspecified, to: :negative
+    end
+
+    event :analyzed_as_disputed do
+      transitions from: :unspecified, to: :disputed
+    end
+
+    event :marked_as_disputed do
       transitions from: :negative, to: :disputed
     end
   end
