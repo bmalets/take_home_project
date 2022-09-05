@@ -7,13 +7,38 @@ module TradeLines
     end
 
     def call
-      trade_lines = FastJsonparser.load(@file_path.to_s)
+      save_imported_file
+      save_trade_lines
 
+      file_import
+    end
+
+    private
+
+    def save_imported_file
+      file_import.document.attach(
+        io: File.open(@file_path),
+        filename: @file_path.basename
+      )
+    end
+
+    def save_trade_lines
       ApplicationRecord.transaction do
-        trade_lines.each do |raw_data|
-          TradeLine.create!(name: raw_data[NAME_ATTRIBUTE], raw: raw_data)
+        trade_lines_collection.each do |raw_data|
+          file_import.trade_lines.create!(
+            name: raw_data[NAME_ATTRIBUTE],
+            raw: raw_data
+          )
         end
       end
+    end
+
+    def trade_lines_collection
+      @trade_lines ||= FastJsonparser.load(@file_path.to_s)
+    end
+
+    def file_import
+      @file_import ||= FileImport.create!
     end
   end
 end

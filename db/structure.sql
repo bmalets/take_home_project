@@ -10,6 +10,17 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: import_status; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.import_status AS ENUM (
+    'pending',
+    'failed',
+    'success'
+);
+
+
+--
 -- Name: item_status; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -173,7 +184,8 @@ ALTER SEQUENCE public.bureaus_id_seq OWNED BY public.bureaus.id;
 CREATE TABLE public.file_imports (
     id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    status public.import_status DEFAULT 'pending'::public.import_status NOT NULL
 );
 
 

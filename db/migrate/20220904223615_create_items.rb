@@ -1,6 +1,5 @@
 class CreateItems < ActiveRecord::Migration[7.0]
   def up
-    # crm_status
     execute <<~SQL.squish
       CREATE TYPE item_status AS ENUM ('unspecified', 'negative', 'disputed');
     SQL

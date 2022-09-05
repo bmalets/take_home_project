@@ -6,18 +6,10 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+# import bureaus
 bureau_names = %w[Experian Equifax TransUnion]
 bureau_names.each { |bureau_name| Bureau.find_or_create_by(name: bureau_name) }
 
-file_name = 'sample.json'
-file_path = Rails.root.join(file_name)
-document = File.open(file_path)
-
-file_import = FileImport.create!
-file_import.document.attach(io: document)
-
-TradeLines::Importer.new(file_path: file_path).call if File.exist?(file_path)
-
-TradeLine.find_each do |trade_line|
-  TradeLines::Analyzer.new(trade_line: trade_line).call
-end
+# import trade lines
+file_name = 'db/data/sample.json'
+Rake::Task['data:import'].invoke(file_name)
