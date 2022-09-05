@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FileImport < ApplicationRecord
   include AASM
 
@@ -5,7 +7,7 @@ class FileImport < ApplicationRecord
   has_one_attached :document, dependent: :purge
 
   validates :status, presence: true
-  validates :document, content_type: ['application/json'], size: {less_than: 100.megabytes}
+  validates :document, content_type: ['application/json'], size: { less_than: 100.megabytes }
 
   aasm column: :status do
     state :pending, initial: true

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TradeLines
   class Analyzer
     def initialize(file_import:)
@@ -6,7 +8,7 @@ module TradeLines
 
     def call
       @file_import.trade_lines.find_each do |trade_line|
-        ItemAnalyzer.new(trade_line: trade_line).call
+        ItemAnalyzer.new(trade_line:).call
       end
     end
   end

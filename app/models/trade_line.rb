@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TradeLine < ApplicationRecord
   belongs_to :file_import
   has_many :items, dependent: :destroy

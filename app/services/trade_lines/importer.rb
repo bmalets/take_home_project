@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module TradeLines
   class Importer
-    NAME_ATTRIBUTE = :creditor_furnisher
+    TRADE_LINE_NAME_ATTRIBUTE = :creditor_furnisher
 
     def initialize(file_path:)
       @file_path = file_path
@@ -26,7 +28,7 @@ module TradeLines
       ApplicationRecord.transaction do
         trade_lines_collection.each do |raw_data|
           file_import.trade_lines.create!(
-            name: raw_data[NAME_ATTRIBUTE],
+            name: raw_data[TRADE_LINE_NAME_ATTRIBUTE],
             raw: raw_data
           )
         end
@@ -34,7 +36,7 @@ module TradeLines
     end
 
     def trade_lines_collection
-      @trade_lines ||= FastJsonparser.load(@file_path.to_s)
+      @trade_lines_collection ||= FastJsonparser.load(@file_path.to_s)
     end
 
     def file_import

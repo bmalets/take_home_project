@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TradeLines
   class ItemAnalyzer
     BUREAU_KEYS = {
@@ -5,6 +7,21 @@ module TradeLines
       'Equifax' => 'equifax_data',
       'TransUnion' => 'transunion_data'
     }.freeze
+
+    VALID_PAYMENT_HISTORY_VALUES = ['OK', ''].freeze
+
+    COMMENTS_ATTRIBUTE = 'comments'
+    PAYMENT_HISTORY_ATTRIBUTE = 'payment_history'
+
+    COLLECTION_ATTRIBUTES = [
+      COMMENTS_ATTRIBUTE,
+      'account_type',
+      'account_type_details',
+      'payment_status'
+    ].freeze
+
+    DISPUTE_KEY = 'dispute'
+    COLLECTION_KEY = 'collection'
 
     def initialize(trade_line:)
       @trade_line = trade_line
@@ -26,23 +43,42 @@ module TradeLines
       bureau_key  = BUREAU_KEYS[bureau.name]
       bureau_data = @raw_data[bureau_key]
 
+      # Dispute takes precedence,
+      # we don’t wont to dispute stuff that is already being disputed.
+      if dispute?(bureau_data)
+        item.analyzed_as_disputed!
+        return
+      end
+
       item.analyzed_as_negative! if negative?(bureau_data)
-      item.analyzed_as_disputed! if dispute?(bureau_data)
     end
 
     def negative?(bureau_data)
-      payment_history = bureau_data.dig('payment_history')
-      return true if payment_history.is_a?(Hash) && payment_history.values.without("OK", "").any?
-
-      bureau_data
-        .slice("comments", "account_type", "account_type_details", "payment_status")
-        .values
-        .any? { |attribute| attribute.is_a?(String) && attribute.include?("collection") }
+      bad_payment_history?(bureau_data) || with_collection?(bureau_data)
     end
 
     def dispute?(bureau_data)
-      comments = bureau_data['comments']
-      comments.is_a?(String) && comments.include?("dispute")
+      comments = bureau_data[COMMENTS_ATTRIBUTE]
+      return false unless comments
+
+      comments.downcase.include?(DISPUTE_KEY)
+    end
+
+    def bad_payment_history?(bureau_data)
+      payment_history = bureau_data[PAYMENT_HISTORY_ATTRIBUTE]
+      return false unless payment_history
+
+      payment_history
+        .values
+        .without(*VALID_PAYMENT_HISTORY_VALUES)
+        .any?
+    end
+
+    def with_collection?(bureau_data)
+      bureau_data
+        .slice(*COLLECTION_ATTRIBUTES)
+        .values
+        .any? { |value| value.downcase.include?(COLLECTION_KEY) }
     end
   end
 end
