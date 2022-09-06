@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   include AASM
 
   belongs_to :trade_line
+  belongs_to :file_import, optional: true
+
   belongs_to :bureau
 
   validates :status, presence: true

@@ -1,0 +1,26 @@
+<div class="overflow-x-auto relative sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="py-3 px-6"></th>
+      <% @data.each do |summary_line| %>
+        <th scope="col" class="py-3 px-6"><%= summary_line[:bureau_name] %></th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% @data.sample.keys.without(:bureau_name).each do |status| %>
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <td class="py-4 px-6"><%= status.to_s.capitalize %></td>
+        <% @data.each do |summary_line| %>
+          <td class="py-3 px-6"><%= summary_line[status] %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-center py-5 w-full">
+  <%= link_to 'Back', :back, class: "rounded-none bg-slate-400 px-4 py-2 font-semibold text-sm text-white shadow-sm opacity-100 text-center" %>
+</div>

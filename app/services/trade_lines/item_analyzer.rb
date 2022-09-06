@@ -32,7 +32,7 @@ module TradeLines
       return if @trade_line.items.any?
 
       Bureau.find_each do |bureau|
-        item = @trade_line.items.create(bureau_id: bureau.id)
+        item = @trade_line.items.create!(bureau_id: bureau.id)
         analyze_item(item, bureau)
       end
     end

@@ -12,5 +12,6 @@ bureau_names.each { |bureau_name| Bureau.find_or_create_by(name: bureau_name) }
 
 # import trade lines
 file_name = 'db/data/sample.json'
-TakeHomeProject::Application.load_tasks
-Rake::Task['data:import'].invoke(file_name)
+file_path = Rails.root.join(file_name)
+file_import = TradeLines::Importer.new(file_path:).call
+TradeLines::Analyzer.new(file_import:).call

@@ -4,6 +4,7 @@ class FileImport < ApplicationRecord
   include AASM
 
   has_many :trade_lines, dependent: :destroy
+  has_many :items, through: :trade_lines
   has_one_attached :document, dependent: :purge
 
   validates :status, presence: true

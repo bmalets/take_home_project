@@ -1,0 +1,32 @@
+<div class="overflow-x-auto relative sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="py-3 px-6">Trade line</th>
+      <% @bureaus.each do |bureau| %>
+        <th scope="col" class="py-3 px-6"><%= bureau.name %></th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% @trade_lines.each do |trade_line| %>
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <td class="py-4 px-6"><%= trade_line.name %></td>
+        <% @bureaus.each do |bureau| %>
+          <td class="py-4 px-6"><%= trade_line.items.find { |item| item.bureau_id == bureau.id }&.status %></td>
+        <% end %>
+      </tr>
+    <% end %>
+
+    <% if @trade_lines.none? %>
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <td class="py-4 px-6 text-center" colspan="5"> No trade lines. </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-center py-5 w-full">
+  <%= link_to 'Back', :back, class: "rounded-none bg-slate-400 px-4 py-2 font-semibold text-sm text-white shadow-sm opacity-100 text-center" %>
+</div>
