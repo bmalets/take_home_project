@@ -32,7 +32,10 @@ module TradeLines
             raw: raw_data
           )
         end
+        file_import.set_imported!
       end
+
+      file_import.set_failed! unless file_import.success?
     end
 
     def trade_lines_collection
