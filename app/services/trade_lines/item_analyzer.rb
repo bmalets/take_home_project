@@ -8,10 +8,10 @@ module TradeLines
       'TransUnion' => 'transunion_data'
     }.freeze
 
-    VALID_PAYMENT_HISTORY_VALUES = ['OK', ''].freeze
-
     COMMENTS_ATTRIBUTE = 'comments'
     PAYMENT_HISTORY_ATTRIBUTE = 'payment_history'
+
+    VALID_PAYMENT_HISTORY_VALUE = 'OK'
 
     COLLECTION_ATTRIBUTES = [
       COMMENTS_ATTRIBUTE,
@@ -70,8 +70,7 @@ module TradeLines
 
       payment_history
         .values
-        .without(*VALID_PAYMENT_HISTORY_VALUES)
-        .any?
+        .any? { |value| value != VALID_PAYMENT_HISTORY_VALUE }
     end
 
     def with_collection?(bureau_data)
