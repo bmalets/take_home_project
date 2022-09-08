@@ -1,4 +1,4 @@
-<div class="overflow-x-auto relative sm:rounded-lg">
+<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
   <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
     <tr>
@@ -12,10 +12,13 @@
     <% @file_imports.each do |file_import| %>
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
         <td class="py-4 px-6"><%= file_import.created_at %></td>
-        <td class="py-4 px-6"><%= file_import.status %></td>
         <td class="py-4 px-6">
-          <%= link_to file_import.document.filename, rails_blob_path(file_import.document, disposition: "attachment"), class: "font-medium text-red-600 dark:text-red-500 hover:underline" %>
+          <%= link_to rails_blob_path(file_import.document, disposition: "attachment"), class: "font-medium text-red-600 dark:text-red-500 hover:underline" do %>
+            <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg>
+            <%= file_import.document.filename %>
+          <% end %>
         </td>
+        <td class="py-4 px-6"><%= file_import.status %></td>
         <td class="py-4 px-6">
           <%= link_to 'Trade Lines', file_import_trade_lines_path(file_import), class: "py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
           <%= link_to 'Summary', file_import_summary_path(file_import), class: "py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>

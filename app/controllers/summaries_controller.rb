@@ -1,20 +1,13 @@
 # frozen_string_literal: true
 
 class SummariesController < ApplicationController
+  include SummaryCalculation
+
   before_action :set_file_import, only: [:show]
 
   def show
     bureaus = Bureau.select(:id, :name)
-    items = @file_import.items
-
-    @data = bureaus.map do |bureau|
-      {
-        bureau_name: bureau.name,
-        unspecified: items.count { |item| item.bureau_id == bureau.id && item.unspecified? },
-        disputed: items.count { |item| item.bureau_id == bureau.id && item.disputed? },
-        negative: items.count { |item| item.bureau_id == bureau.id && item.negative? }
-      }
-    end
+    @data = summary_data(bureaus, @file_import.items)
   end
 
   private
