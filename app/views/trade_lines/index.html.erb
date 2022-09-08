@@ -11,7 +11,10 @@
     <tbody>
     <% @trade_lines.each do |trade_line| %>
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <td class="py-4 px-6"><%= trade_line.name %></td>
+        <td class="py-4 px-6">
+          <span class="mr-2"><%= trade_line.name %></span>
+          <%= render partial: 'details_modal', locals: {modal_id: "trade_line_#{trade_line.id}", trade_line: trade_line} %>
+        </td>
         <% @bureaus.each do |bureau| %>
           <td class="py-4 px-6"><%= trade_line.items.find { |item| item.bureau_id == bureau.id }&.status %></td>
         <% end %>
@@ -20,7 +23,7 @@
 
     <% if @trade_lines.none? %>
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <td class="py-4 px-6 text-center" colspan="5"> No trade lines. </td>
+        <td class="py-4 px-6 text-center" colspan="5"> No trade lines.</td>
       </tr>
     <% end %>
     </tbody>
@@ -28,5 +31,5 @@
 </div>
 
 <div class="text-center py-5 w-full">
-  <%= link_to 'Back', :back, class: "rounded-none bg-slate-400 px-4 py-2 font-semibold text-sm text-white shadow-sm opacity-100 text-center" %>
+  <%= link_to 'Back', :back, class: "py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
 </div>

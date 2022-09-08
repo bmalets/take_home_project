@@ -17,9 +17,9 @@
           <%= link_to file_import.document.filename, rails_blob_path(file_import.document, disposition: "attachment"), class: "font-medium text-red-600 dark:text-red-500 hover:underline" %>
         </td>
         <td class="py-4 px-6">
-          <%= link_to 'Trade Lines', file_import_trade_lines_path(file_import), class: "bg-sky-400 font-semibold text-xs text-white text-center px-2 py-1 mr-2" %>
-          <%= link_to 'Summary', file_import_summary_path(file_import), class: "bg-teal-600 font-semibold text-xs text-white text-center px-2 py-1 mr-2" %>
-          <%= link_to 'Delete', file_import_path(file_import), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "bg-rose-400 font-semibold text-xs text-white text-center px-2 py-1 mr-2" %>
+          <%= link_to 'Trade Lines', file_import_trade_lines_path(file_import), class: "py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+          <%= link_to 'Summary', file_import_summary_path(file_import), class: "py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+          <%= link_to 'Delete', file_import_path(file_import), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
         </td>
       </tr>
     <% end %>
