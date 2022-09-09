@@ -1,16 +1,23 @@
 ### Notes
 
+Import JSON file with trade lines:
+```ruby
+# db/data/sample.json
+bundle exec rake data:import\[db/data/sample.json\]
+```
+If you don't want to run this rake task - `rake db:seeds` also imports sample.json file into the application ;)
+
 Kick off rails app:
 ```ruby
 bin/setup
 bin/dev
 ```
 
-Import JSON file with trade lines:
+Run specs:
 ```ruby
-# db/data/sample.json
-bundle exec rake data:import\[db/data/sample.json\]
+bundle exec rspec
 ```
+All models, service classes and serializes are 100% covered with specs. Additionally, there are requests and feature specs that cover the rest functionality and the UI.
 
 Pages:
 1. `/` - File imports. History of uploaded JSON files with data
