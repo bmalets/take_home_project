@@ -46,11 +46,11 @@ module TradeLines
       # Dispute takes precedence,
       # we don’t wont to dispute stuff that is already being disputed.
       if dispute?(bureau_data)
-        item.analyzed_as_disputed!
+        item.analyze_as_disputed!
         return
       end
 
-      item.analyzed_as_negative! if negative?(bureau_data)
+      item.analyze_as_negative! if negative?(bureau_data)
     end
 
     def negative?(bureau_data)

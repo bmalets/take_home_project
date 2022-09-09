@@ -3,22 +3,28 @@
 class Item < ApplicationRecord
   include AASM
 
+  enum status: {
+    unspecified: 'unspecified',
+    negative: 'negative',
+    disputed: 'disputed'
+  }
+
   belongs_to :trade_line
   belongs_to :file_import, optional: true
   belongs_to :bureau
 
   validates :status, presence: true
 
-  aasm column: :status do
+  aasm column: :status, enum: true do
     state :unspecified, initial: true
     state :negative
     state :disputed
 
-    event :analyzed_as_negative do
+    event :analyze_as_negative do
       transitions from: :unspecified, to: :negative
     end
 
-    event :analyzed_as_disputed do
+    event :analyze_as_disputed do
       transitions from: :unspecified, to: :disputed
     end
 

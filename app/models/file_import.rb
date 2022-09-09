@@ -3,6 +3,12 @@
 class FileImport < ApplicationRecord
   include AASM
 
+  enum status: {
+    pending: 'pending',
+    failed: 'failed',
+    success: 'success'
+  }
+
   has_many :trade_lines, dependent: :destroy
   has_many :items, through: :trade_lines
   has_one_attached :document, dependent: :purge
@@ -10,7 +16,7 @@ class FileImport < ApplicationRecord
   validates :status, presence: true
   validates :document, content_type: ['application/json'], size: { less_than: 100.megabytes }
 
-  aasm column: :status do
+  aasm column: :status, enum: true do
     state :pending, initial: true
     state :failed
     state :success
