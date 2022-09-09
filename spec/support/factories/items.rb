@@ -5,7 +5,7 @@ FactoryBot.define do
     bureau
     trade_line
 
-    status { Faker::Lorem.word }
+    status { :unspecified }
 
     trait :negative do
       status { :negative }

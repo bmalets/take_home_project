@@ -2,6 +2,14 @@
 
 FactoryBot.define do
   factory :file_import do
-    status { Faker::Company.name }
+    status { :pending }
+
+    trait :failed do
+      status { :failed }
+    end
+
+    trait :success do
+      status { :success }
+    end
   end
 end
