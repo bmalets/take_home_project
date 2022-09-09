@@ -4,12 +4,12 @@
     <tr>
       <th scope="col" class="py-3 px-6"></th>
       <% @data.each do |summary_line| %>
-        <th scope="col" class="py-3 px-6"><%= summary_line[:bureau_name] %></th>
+        <th scope="col" class="py-3 px-6"><%= summary_line[:name] %></th>
       <% end %>
     </tr>
     </thead>
     <tbody>
-    <% @data.sample.keys.without(:bureau_name).each do |status| %>
+    <% @data.sample.keys.without(:name).each do |status| %>
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
         <td class="py-4 px-6"><%= status.to_s.capitalize %></td>
         <% @data.each do |summary_line| %>
@@ -18,6 +18,14 @@
       </tr>
     <% end %>
     </tbody>
+    <tfoot class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="py-3 px-6">Total</th>
+      <% @data.each do |summary_line| %>
+        <th scope="col" class="py-3 px-6"><%= @total[summary_line[:name]] %></th>
+      <% end %>
+    </tr>
+    </tfoot>
   </table>
 </div>
 

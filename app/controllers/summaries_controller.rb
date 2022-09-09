@@ -7,7 +7,10 @@ class SummariesController < ApplicationController
 
   def show
     bureaus = Bureau.select(:id, :name)
-    @data = summary_data(bureaus, @file_import.items)
+    items = @file_import.items
+
+    @data = summary_data(bureaus, items)
+    @total = total(@data)
   end
 
   private
