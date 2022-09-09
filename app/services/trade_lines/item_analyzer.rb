@@ -16,7 +16,7 @@ module TradeLines
     COLLECTION_ATTRIBUTES = [
       COMMENTS_ATTRIBUTE,
       'account_type',
-      'account_type_details',
+      'account_type_detail',
       'payment_status'
     ].freeze
 
@@ -43,7 +43,7 @@ module TradeLines
       bureau_key  = BUREAU_KEYS[bureau.name]
       bureau_data = @raw_data[bureau_key]
 
-      # Dispute takes precedence,
+      # NOTE: Dispute takes precedence,
       # we don’t wont to dispute stuff that is already being disputed.
       if dispute?(bureau_data)
         item.analyze_as_disputed!
