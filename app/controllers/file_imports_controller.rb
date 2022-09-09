@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FileImportsController < ApplicationController
-  before_action :set_file_import, only: %i[show destroy]
+  before_action :set_file_import, only: %i[destroy]
 
   def index
     @file_imports = FileImport.all
