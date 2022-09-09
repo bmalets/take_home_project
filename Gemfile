@@ -58,12 +58,14 @@ gem 'active_storage_validations', '~> 0.9.8'
 gem 'alba', '~> 1.6'
 gem 'fast_jsonparser', '~> 0.6.0'
 gem 'oj', '~> 3.13'
-gem 'rspec-rails', '~> 5.1'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'pry', '~> 0.14.1'
+
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -84,6 +86,11 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'rspec-rails', '~> 5.1'
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov', require: false
+  gem 'timecop'
+
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
