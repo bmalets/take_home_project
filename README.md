@@ -1,8 +1,32 @@
+### Notes
+
+Kick off rails app:
+```ruby
+bin/setup
+bin/dev
+```
+
+Import JSON file with trade lines:
+```ruby
+# db/data/sample.json
+bundle exec rake data:import\[db/data/sample.json\]
+```
+
+Pages:
+1. `/` - File imports. History of uploaded JSON files with data
+![](file_import.png)
+2. `/file_imports/:id/trade_lines` - Trade lines. Processed trade lines from the specific imported file
+![](trade_lines.png)
+3. `/file_imports/:id/summary` - Summary. Summary of processed trade lines from the specific imported file
+![](summary.png)
+
 # Take-home exercise
 
 The first step at credit repair is getting the credit reports, parsing them and classifying the relevant information. A credit report contains four major data sections (personal information, trade lines, inquiries and public information) across three bureaus (Experian, Equifax, and TransUnion).
 
 Suppose you have one credit report section already parsed and in structured JSON format - trade lines. Your job is to build a small full-stack tool that will classify trade lines according to given rules and allows for marking which ones we will be disputing.
+
+![](wireframe.png)
 
 ## Classification (backend)
 
