@@ -53,6 +53,13 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+gem 'rspec-rails', '~> 5.1'
+gem 'aasm', '~> 5.3'
+gem 'fast_jsonparser', '~> 0.6.0'
+gem 'active_storage_validations', '~> 0.9.8'
+gem 'alba', '~> 1.6'
+
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -81,11 +88,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-
-gem 'rspec-rails', '~> 5.1'
-
-gem 'aasm', '~> 5.3'
-
-gem 'fast_jsonparser', '~> 0.6.0'
-
-gem 'active_storage_validations', '~> 0.9.8'

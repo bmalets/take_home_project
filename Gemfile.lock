@@ -75,6 +75,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    alba (1.6.0)
     ast (2.4.2)
     bindex (0.8.1)
     bootsnap (1.13.0)
@@ -277,6 +278,7 @@ PLATFORMS
 DEPENDENCIES
   aasm (~> 5.3)
   active_storage_validations (~> 0.9.8)
+  alba (~> 1.6)
   bootsnap
   capybara
   cssbundling-rails

@@ -8,4 +8,6 @@ Rails.application.routes.draw do
     resources :trade_lines, only: [:index]
     resource :summary, only: [:show]
   end
+
+  resources :items, only: [:update]
 end

@@ -3,7 +3,7 @@
 module SummaryCalculation
   extend ActiveSupport::Concern
 
-  def summary_data(bureaus, trade_line_items)
+  def summary_data(bureaus, items)
     bureaus.map do |bureau|
       {
         bureau_name: bureau.name,

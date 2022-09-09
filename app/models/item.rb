@@ -23,8 +23,19 @@ class Item < ApplicationRecord
       transitions from: :unspecified, to: :disputed
     end
 
-    event :marked_as_disputed do
+    event :mark_as_disputed do
       transitions from: :negative, to: :disputed
     end
+
+    event :undo_mark_as_disputed do
+      transitions from: :disputed, to: :negative
+    end
+  end
+
+  def could_mark_as_disputed?
+    return true if negative?
+
+    # changed to disputed state manually (not initially)
+    disputed? && (created_at != updated_at)
   end
 end

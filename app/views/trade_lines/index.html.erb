@@ -13,10 +13,33 @@
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
         <td class="py-4 px-6">
           <span class="mr-2"><%= trade_line.name %></span>
-          <%= render partial: 'details_modal', locals: {modal_id: "trade_line_#{trade_line.id}", trade_line: trade_line} %>
+          <%= render partial: 'details_modal', locals: { modal_id: "trade_line_#{trade_line.id}", trade_line: trade_line } %>
         </td>
         <% @bureaus.each do |bureau| %>
-          <td class="py-4 px-6"><%= trade_line.items.find { |item| item.bureau_id == bureau.id }&.status %></td>
+          <% item = trade_line.items.find { |item| item.bureau_id == bureau.id } %>
+          <td class="py-4 px-6">
+            <% if item.could_mark_as_disputed? %>
+              <!-- enabled checkbox -->
+              <div class="flex items-center mb-4"
+                   data-controller="items"
+                   data-items-update-url="<%= item_path(item) %>">
+                <input id="<%= "dispute_checkbox_#{item.id}" %>"
+                       <%= 'checked' if item.disputed? %>
+                       type="checkbox"
+                       value=""
+                       data-item-id="<%= item.id %>"
+                       data-action="items#toggle"
+                       class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="<%= "dispute_checkbox_#{item.id}" %>" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"><%= item.status.capitalize %></label>
+              </div>
+            <% else %>
+              <!-- disabled checkbox -->
+              <div class="flex items-center mb-4">
+                <input disabled id="<%= "disabled_checkbox_#{item.id}" %>" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="<%= "disabled_checkbox_#{item.id}" %>" class="ml-2 text-sm font-medium text-gray-400 dark:text-gray-500"><%= item.status.capitalize %></label>
+              </div>
+            <% end %>
+          </td>
         <% end %>
       </tr>
     <% end %>
