@@ -86,6 +86,7 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 5.1'
   gem 'shoulda-matchers', require: false
   gem 'simplecov', require: false
