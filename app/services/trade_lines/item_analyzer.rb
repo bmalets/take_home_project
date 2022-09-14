@@ -11,8 +11,6 @@ module TradeLines
     COMMENTS_ATTRIBUTE = 'comments'
     PAYMENT_HISTORY_ATTRIBUTE = 'payment_history'
 
-    VALID_PAYMENT_HISTORY_VALUE = 'OK'
-
     COLLECTION_ATTRIBUTES = [
       COMMENTS_ATTRIBUTE,
       'account_type',
@@ -70,7 +68,7 @@ module TradeLines
 
       payment_history
         .values
-        .any? { |value| value != VALID_PAYMENT_HISTORY_VALUE }
+        .none? { |value| value.in?(['', 'OK']) }
     end
 
     def with_collection?(bureau_data)

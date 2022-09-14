@@ -76,9 +76,9 @@ describe TradeLines::ItemAnalyzer, type: :service do
           payment_history: { Faker::Date.backward.to_s => '' }
         }
       end
-      let(:expected_status) { 'negative' }
+      let(:expected_status) { 'unspecified' }
 
-      it 'creates negative item' do
+      it 'creates unspecified item' do
         expect(item.status).to eq(expected_status)
       end
     end
